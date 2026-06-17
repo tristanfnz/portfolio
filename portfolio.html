@@ -184,14 +184,16 @@
             }
         }
 
-        img[src*="imgur"] {
-            transition: transform 0.3s ease !important;
-        }
+        @media (min-width: 768px) {
+            img[src*="imgur"] {
+                transition: transform 0.3s ease !important;
+            }
 
-        img[src*="imgur"]:hover {
-            transform: scale(1.5) !important;
-            z-index: 10;
-            position: relative;
+            img[src*="imgur"]:hover {
+                transform: scale(1.5) !important;
+                z-index: 10;
+                position: relative;
+            }
         }
 
         /* Dropdown menu styling */
@@ -228,7 +230,6 @@
             margin: 0 !important;
             padding: 0 !important;
         }
-        }
 
         nav .dropdown li {
             display: block;
@@ -236,12 +237,10 @@
             line-height: 1;
             width: 100%;
         }
-        }
 
         nav ul > li:hover .dropdown {
             opacity: 1;
             visibility: visible;
-            
             pointer-events: auto;
         }
 
