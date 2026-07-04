@@ -1,252 +1,630 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tristan Franks | Social Media Marketing</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tristan Franks — Social Media & Creative Marketing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0C0E1A;
+    --surface:#13162A;
+    --surface-2:#1A1E35;
+    --lime:#C8FF57;
+    --lime-dim:rgba(200,255,87,0.12);
+    --text:#EEEEF0;
+    --muted:#6B7280;
+    --border:rgba(255,255,255,0.07);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--ink);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  /* GRAIN */
+  .grain{
+    position:fixed;inset:0;pointer-events:none;z-index:100;opacity:0.03;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* UTILS */
+  .label{
+    font-family:'Space Mono',monospace;
+    font-size:0.68rem;
+    letter-spacing:0.12em;
+    text-transform:uppercase;
+    color:var(--lime);
+  }
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
+  .reveal.is-visible{opacity:1;transform:translateY(0);}
+
+  /* NAV */
+  nav{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:24px 6vw;
+    position:sticky;top:0;z-index:50;
+    background:rgba(12,14,26,0.85);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+  }
+  .nav-logo{
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:1.1rem;
+    letter-spacing:-0.01em;
+    color:var(--text);
+    text-decoration:none;
+  }
+  .nav-logo span{color:var(--lime);}
+  nav ul{list-style:none;display:flex;gap:32px;align-items:center;}
+  nav a{color:var(--text);text-decoration:none;font-size:0.85rem;opacity:0.7;transition:opacity 0.2s;}
+  nav a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--lime);color:var(--ink);
+    padding:9px 20px;border-radius:2px;
+    font-weight:600;font-size:0.82rem;
+    opacity:1 !important;
+    transition:transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,255,87,0.25);}
+
+  /* HAMBURGER */
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:60;}
+  .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform 0.3s ease,opacity 0.3s ease;}
+  .hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .hamburger.is-open span:nth-child(2){opacity:0;}
+  .hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+  .mobile-nav{
+    display:none;position:fixed;inset:0;background:var(--ink);z-index:55;
+    flex-direction:column;align-items:center;justify-content:center;gap:28px;
+    opacity:0;transition:opacity 0.3s ease;pointer-events:none;
+  }
+  .mobile-nav.is-open{opacity:1;pointer-events:auto;}
+  .mobile-nav a{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:700;color:var(--text);text-decoration:none;transition:color 0.2s;}
+  .mobile-nav a:hover{color:var(--lime);}
+  .mobile-nav .m-cta{background:var(--lime);color:var(--ink);padding:14px 36px;border-radius:2px;font-size:1rem;margin-top:12px;}
+
+  /* HERO */
+  .hero{
+    min-height:94vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:0 6vw;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-bg-text{
+    position:absolute;
+    right:-2vw;top:50%;transform:translateY(-50%);
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:clamp(8rem,18vw,22rem);
+    line-height:1;
+    color:rgba(255,255,255,0.018);
+    pointer-events:none;
+    user-select:none;
+    white-space:nowrap;
+  }
+  .hero-inner{max-width:900px;position:relative;z-index:2;}
+  .hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:28px;}
+  .hero-dot{width:8px;height:8px;border-radius:50%;background:var(--lime);animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
+  .hero h1{
+    font-family:'Syne',sans-serif;
+    font-weight:800;
+    font-size:clamp(3rem,8vw,7rem);
+    line-height:0.96;
+    letter-spacing:-0.03em;
+  }
+  .hero h1 .highlight{
+    color:var(--lime);
+    position:relative;
+    display:inline-block;
+  }
+  .hero-sub{
+    margin-top:28px;
+    font-size:1.1rem;
+    color:var(--muted);
+    max-width:480px;
+    line-height:1.65;
+  }
+  .hero-sub strong{color:var(--text);}
+  .hero-actions{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap;align-items:center;}
+  .btn-primary{
+    background:var(--lime);color:var(--ink);
+    padding:14px 28px;border-radius:2px;
+    font-weight:600;font-size:0.9rem;
+    text-decoration:none;
+    transition:transform 0.2s,box-shadow 0.2s;
+    display:inline-block;
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(200,255,87,0.25);}
+  .btn-ghost{
+    color:var(--text);text-decoration:none;
+    font-size:0.9rem;opacity:0.6;
+    display:inline-flex;align-items:center;gap:8px;
+    transition:opacity 0.2s;
+  }
+  .btn-ghost:hover{opacity:1;}
+  .btn-ghost::after{content:"↗";}
+
+  /* TOOLS TICKER */
+  .ticker{
+    margin-top:64px;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+    padding:14px 0;
+    overflow:hidden;
+  }
+  .ticker-track{display:inline-flex;animation:ticker 22s linear infinite;}
+  .ticker span{
+    font-family:'Space Mono',monospace;
+    font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--muted);padding:0 24px;
+    display:inline-flex;align-items:center;gap:24px;
+    white-space:nowrap;
+  }
+  .ticker span::after{content:"✦";color:var(--lime);font-size:0.55rem;}
+  @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* FEATURED CASSIA */
+  .featured{padding:8vw 6vw;}
+  .section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:48px;}
+  .section-head h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.4rem,2.5vw,2rem);}
+  .section-rule{flex:1;height:1px;background:var(--border);}
+
+  .cassia-card{
+    display:grid;grid-template-columns:1fr 1fr;gap:0;
+    background:var(--surface);border-radius:4px;
+    border:1px solid var(--border);
+    overflow:hidden;
+    transition:transform 0.3s ease,box-shadow 0.3s ease;
+  }
+  .cassia-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(0,0,0,0.4);}
+  .cassia-preview{
+    position:relative;
+    background:
+      linear-gradient(135deg,rgba(12,14,26,0.3),rgba(12,14,26,0.7)),
+      url('https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg') center/cover no-repeat;
+    min-height:460px;
+  }
+  .cassia-badge{
+    position:absolute;top:24px;left:24px;
+    background:rgba(12,14,26,0.85);
+    backdrop-filter:blur(8px);
+    border:1px solid rgba(200,255,87,0.25);
+    padding:8px 14px;border-radius:2px;
+    font-family:'Space Mono',monospace;
+    font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--lime);
+  }
+  .cassia-info{
+    padding:48px 40px;
+    display:flex;flex-direction:column;justify-content:center;gap:20px;
+  }
+  .cassia-info .project-type{display:flex;gap:8px;flex-wrap:wrap;}
+  .tag{
+    font-family:'Space Mono',monospace;font-size:0.62rem;
+    letter-spacing:0.06em;text-transform:uppercase;
+    border:1px solid var(--border);
+    padding:4px 10px;border-radius:2px;
+    color:var(--muted);
+  }
+  .cassia-info h3{
+    font-family:'Syne',sans-serif;font-weight:700;
+    font-size:clamp(1.6rem,2.5vw,2.2rem);
+    line-height:1.1;
+  }
+  .cassia-info p{color:var(--muted);line-height:1.65;font-size:0.97rem;}
+  .cassia-info .michelin-note{
+    display:flex;align-items:center;gap:10px;
+    padding:12px 16px;
+    background:var(--lime-dim);
+    border:1px solid rgba(200,255,87,0.2);
+    border-radius:2px;
+    font-size:0.85rem;
+  }
+  .cassia-info .michelin-note strong{color:var(--lime);}
+  .project-link{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--lime);text-decoration:none;
+    font-weight:600;font-size:0.9rem;
+    margin-top:8px;
+    transition:gap 0.2s ease;
+  }
+  .project-link:hover{gap:14px;}
+  .project-link::after{content:"→";}
+
+  /* REEL STRIP */
+  .reel{
+    padding:0 0 8vw;
+    overflow:hidden;
+  }
+  .reel-head{padding:0 6vw;margin-bottom:28px;}
+  .reel-track{
+    display:flex;gap:16px;
+    animation:reel 28s linear infinite;
+    width:max-content;
+    padding:0 6vw;
+  }
+  .reel-track:hover{animation-play-state:paused;}
+  @keyframes reel{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .reel-item{
+    flex-shrink:0;width:260px;height:170px;
+    border-radius:3px;
+    border:1px solid var(--border);
+    background:var(--surface);
+    overflow:hidden;position:relative;
+  }
+  .reel-item img{width:100%;height:100%;object-fit:cover;opacity:0.75;transition:opacity 0.3s;}
+  .reel-item:hover img{opacity:1;}
+  .reel-item .reel-label{
+    position:absolute;bottom:10px;left:12px;
+    font-family:'Space Mono',monospace;
+    font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--text);opacity:0.7;
+  }
+
+  /* OTHER WORK */
+  .work{padding:0 6vw 8vw;}
+  .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .work-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:3px;
+    padding:36px 32px;
+    transition:border-color 0.25s ease,transform 0.25s ease;
+    cursor:default;
+  }
+  .work-card:hover{border-color:rgba(200,255,87,0.2);transform:translateY(-3px);}
+  .work-card .num{
+    font-family:'Space Mono',monospace;
+    font-size:0.7rem;color:var(--lime);
+    display:block;margin-bottom:20px;
+  }
+  .work-card h3{
+    font-family:'Syne',sans-serif;
+    font-weight:700;font-size:1.25rem;
+    margin-bottom:10px;
+  }
+  .work-card p{color:var(--muted);font-size:0.92rem;line-height:1.6;}
+  .work-card .card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px;}
+
+  /* ABOUT */
+  .about{
+    padding:8vw 6vw;
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:8vw;align-items:center;
+    border-top:1px solid var(--border);
+  }
+  .about-img-wrap{position:relative;}
+  .about-img{
+    width:100%;aspect-ratio:4/5;
+    object-fit:cover;border-radius:3px;
+    filter:grayscale(15%);
+    border:1px solid var(--border);
+  }
+  .about-img-placeholder{
+    width:100%;aspect-ratio:4/5;
+    background:var(--surface-2);
+    border-radius:3px;
+    border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    flex-direction:column;gap:12px;
+  }
+  .about-img-placeholder span{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;}
+  .about-accent{
+    position:absolute;bottom:-16px;right:-16px;
+    width:120px;height:120px;
+    background:var(--lime-dim);
+    border:1px solid rgba(200,255,87,0.15);
+    border-radius:3px;
+    display:flex;align-items:center;justify-content:center;
+    flex-direction:column;gap:4px;
+  }
+  .about-accent .big{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:var(--lime);}
+  .about-accent .small{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-align:center;}
+  .about-text{display:flex;flex-direction:column;gap:20px;}
+  .about-text h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.1;}
+  .about-text h2 span{color:var(--lime);}
+  .about-text p{color:var(--muted);line-height:1.7;font-size:0.97rem;}
+  .tools-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+  .tool{
+    font-family:'Space Mono',monospace;font-size:0.65rem;
+    letter-spacing:0.06em;text-transform:uppercase;
+    background:var(--surface-2);
+    border:1px solid var(--border);
+    padding:6px 12px;border-radius:2px;
+    color:var(--text);
+  }
+
+  /* CONTACT */
+  .contact{
+    padding:8vw 6vw;
+    text-align:center;
+    border-top:1px solid var(--border);
+    background:var(--surface);
+  }
+  .contact h2{
+    font-family:'Syne',sans-serif;font-weight:800;
+    font-size:clamp(2.5rem,6vw,5rem);
+    line-height:1;letter-spacing:-0.02em;
+    margin:16px 0 20px;
+  }
+  .contact h2 span{color:var(--lime);}
+  .contact p{color:var(--muted);max-width:420px;margin:0 auto 36px;line-height:1.65;}
+  .contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+  .contact-link{
+    display:inline-flex;align-items:center;gap:8px;
+    color:var(--text);text-decoration:none;
+    border:1px solid var(--border);
+    padding:12px 24px;border-radius:2px;
+    font-size:0.9rem;
+    transition:border-color 0.2s,color 0.2s;
+  }
+  .contact-link:hover{border-color:var(--lime);color:var(--lime);}
+
+  /* FOOTER */
+  footer{
+    padding:24px 6vw;
+    display:flex;justify-content:space-between;align-items:center;
+    border-top:1px solid var(--border);
+    font-family:'Space Mono',monospace;
+    font-size:0.68rem;color:var(--muted);
+    letter-spacing:0.05em;
+  }
+
+  /* MOBILE */
+  @media(max-width:860px){
+    nav ul{display:none;}
+    nav .nav-cta{display:none;}
+    .hamburger{display:flex;}
+    .mobile-nav{display:flex;}
+    .cassia-card{grid-template-columns:1fr;}
+    .cassia-preview{min-height:280px;}
+    .work-grid{grid-template-columns:1fr;}
+    .about{grid-template-columns:1fr;}
+    .about-img-wrap{display:none;}
+    footer{flex-direction:column;gap:8px;text-align:center;}
+  }
+</style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <a href="index.html" class="logo">TF</a>
-            <ul>
-                <li>
-                    <a href="index.html">Home</a>
-                    <ul class="dropdown">
-                        <li><a href="index.html#featured">Featured Work</a></li>
-                        <li><a href="index.html#skills">What I Do</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="portfolio.html">Work</a>
-                    <ul class="dropdown">
-                        <li><a href="portfolio.html#maaw">Make-A-Wish</a></li>
-                        <li><a href="portfolio.html#barrys">Barry's Bakery</a></li>
-                        <li><a href="portfolio.html#design">Design Work</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="about.html">About</a>
-                    <ul class="dropdown">
-                        <li><a href="about.html#whoistristan">Who I Am</a></li>
-                        <li><a href="about.html#skills">Skills & Tools</a></li>
-                        <li><a href="about.html#background">Background</a></li>
-                    </ul>
-                </li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
+<div class="grain"></div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="fade-in">
-                    <p class="mono" style="color: var(--accent-cyan); margin-bottom: 1rem; font-size: 0.9rem;">Welcome to my portfolio</p>
-                    <h1 class="gradient-text" style="margin-bottom: 2rem;">
-                        Social Media Marketing<br>& Creative Strategy
-                    </h1>
-                </div>
-                
-                <div class="fade-in" style="animation-delay: 0.2s;">
-                    <p style="font-size: 1.2rem; color: var(--text-secondary); max-width: 600px; margin-bottom: 3rem;">
-                        Fresh NZIE graduate. I build campaigns that hit different - blending strategy with creativity to move audiences and drive results.
-                    </p>
-                </div>
+<nav>
+  <a href="#" class="nav-logo">TF<span>.</span></a>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-                <div class="fade-in" style="animation-delay: 0.4s;">
-                    <div style="display: flex; gap: 1rem;">
-                        <a href="portfolio.html" class="btn btn-primary">View Work</a>
-                        <a href="contact.html" class="btn btn-secondary">Get in Touch</a>
-                    </div>
-                </div>
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#work">Work</a>
+  <a href="#about">About</a>
+  <a href="#contact" class="m-cta">Get in Touch</a>
+</div>
 
-                <div class="hero-stats" style="margin-top: 6rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; padding-top: 3rem; border-top: 1px solid var(--border-color);">
-                    <div>
-                        <p class="mono" style="font-size: 2.5rem; background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">20M+</p>
-                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Video Views Generated</p>
-                    </div>
-                    <div>
-                        <p class="mono" style="font-size: 2.5rem; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">5+</p>
-                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Case Studies</p>
-                    </div>
-                    <div>
-                        <p class="mono" style="font-size: 2.5rem; background: linear-gradient(135deg, var(--accent-pink), var(--accent-orange)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">100%</p>
-                        <p style="color: var(--text-secondary); margin-top: 0.5rem;">Dedicated & Creative</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="hero">
+  <div class="hero-bg-text">TF</div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">
+      <div class="hero-dot"></div>
+      <span class="label">Available for work — Auckland, NZ</span>
+    </div>
+    <h1>Tristan<br><span class="highlight">Franks</span>.<br>Marketing.</h1>
+    <p class="hero-sub">
+      <strong>Social media marketer and creative based in Auckland.</strong> I build campaigns, content, and digital experiences that actually connect with people — not just fill a feed.
+    </p>
+    <div class="hero-actions">
+      <a href="#work" class="btn-primary">See My Work</a>
+      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    </div>
+  </div>
 
-    <!-- Featured Work -->
-    <section class="featured" id="featured">
-        <div class="container">
-            <div style="text-align: center; margin-bottom: 4rem;">
-                <p class="mono" style="color: var(--accent-purple); margin-bottom: 1rem;">Featured Work</p>
-                <h2 class="gradient-text">Recent Projects</h2>
-            </div>
+  <div class="ticker">
+    <div class="ticker-track">
+      <span>Meta Ads Manager</span>
+      <span>TikTok for Business</span>
+      <span>Canva Pro</span>
+      <span>Adobe Premiere Pro</span>
+      <span>After Effects</span>
+      <span>CapCut</span>
+      <span>Meta Business Suite</span>
+      <span>Short-Form Video</span>
+      <span>Social Strategy</span>
+      <span>Content Creation</span>
+      <span>Meta Ads Manager</span>
+      <span>TikTok for Business</span>
+      <span>Canva Pro</span>
+      <span>Adobe Premiere Pro</span>
+      <span>After Effects</span>
+      <span>CapCut</span>
+      <span>Meta Business Suite</span>
+      <span>Short-Form Video</span>
+      <span>Social Strategy</span>
+      <span>Content Creation</span>
+    </div>
+  </div>
+</section>
 
-            <div class="grid grid-2" style="gap: 3rem;">
-                <!-- Make-A-Wish Card -->
-                <a href="portfolio.html" class="card work-card" style="text-decoration: none; color: inherit; cursor: pointer;">
-                    <div style="width: 100%; height: 200px; background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(6, 182, 212, 0.2)); border-radius: 0.5rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center;">
-                        <img src="https://i.imgur.com/dG0me8z.jpg" alt="Make-A-Wish" style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.5rem;">
-                    </div>
-                    <span class="mono" style="color: var(--accent-cyan); font-size: 0.9rem;">Capstone Project</span>
-                    <h3 style="margin: 1rem 0;">Make-A-Wish Campaign</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Donor acquisition strategy using SPECH framework. Achieved logic-first messaging for high-value monthly giving.</p>
-                    <p class="mono" style="color: var(--accent-purple); font-size: 0.9rem;">Strategy • Content • Meta Ads</p>
-                </a>
+<section class="featured" id="work">
+  <div class="section-head reveal">
+    <span class="label">Featured Project</span>
+    <div class="section-rule"></div>
+  </div>
 
-                <!-- Barry's Bakery Card -->
-                <a href="portfolio.html" class="card work-card" style="text-decoration: none; color: inherit; cursor: pointer;">
-                    <div style="width: 100%; height: 200px; background: linear-gradient(135deg, rgba(249, 115, 22, 0.2), rgba(236, 72, 153, 0.2)); border-radius: 0.5rem; margin-bottom: 2rem; display: flex; align-items: center; justify-content: center;">
-                        <img src="https://i.imgur.com/HfCB7Vl.jpg" alt="Barry's Bakery" style="width: 100%; height: 100%; object-fit: cover; border-radius: 0.5rem;">
-                    </div>
-                    <span class="mono" style="color: var(--accent-orange); font-size: 0.9rem;">Analytics & Strategy</span>
-                    <h3 style="margin: 1rem 0;">Barry's Bakery Audit</h3>
-                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Competitive analysis uncovering 300% video performance advantage. Strategic roadmap with 597% projected ROI.</p>
-                    <p class="mono" style="color: var(--accent-orange); font-size: 0.9rem;">Analysis • Insights • Reporting</p>
-                </a>
-            </div>
+  <div class="cassia-card reveal">
+    <div class="cassia-preview">
+      <div class="cassia-badge">✦ Michelin Guide Selected Client</div>
+    </div>
+    <div class="cassia-info">
+      <div class="project-type">
+        <span class="tag">Web Design</span>
+        <span class="tag">Branding</span>
+        <span class="tag">Copywriting</span>
+      </div>
+      <h3>Cassia Auckland — Full Website Redesign</h3>
+      <p>A complete redesign for Cassia Auckland, a modern Indian restaurant and Michelin Guide Selected establishment. Built a multi-page site with custom animations, a scroll-driven hero, and a design system centred around the limited pop-up residency at Ozone Coffee Roasters.</p>
+      <div class="michelin-note">
+        <span>✦</span>
+        <span><strong>Michelin Guide Selected</strong> — Inaugural Michelin Guide New Zealand 2026</span>
+      </div>
+      <a href="https://cassiaredesign.netlify.app" target="_blank" class="project-link">View Live Site</a>
+    </div>
+  </div>
+</section>
 
-            <div style="text-align: center; margin-top: 4rem;">
-                <a href="portfolio.html" class="btn btn-primary">View All Work</a>
-            </div>
-        </div>
-    </section>
+<section class="reel">
+  <div class="reel-head reveal">
+    <span class="label">Project Reel</span>
+  </div>
+  <div class="reel-track">
+    <div class="reel-item">
+      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia">
+      <span class="reel-label">Cassia Auckland</span>
+    </div>
+    <div class="reel-item" style="background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">Make-A-Wish NZ</span>
+    </div>
+    <div class="reel-item" style="background:linear-gradient(135deg,#1c1a10,#2a2416);display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">Barry's Bakery</span>
+    </div>
+    <div class="reel-item">
+      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/dcc53125-69a1-4db1-86ed-de9564a839e5/Screenshot+2026-05-31+at+12.22.44%E2%80%AFPM.png" alt="Cassia food">
+      <span class="reel-label">Cassia — Menu</span>
+    </div>
+    <div class="reel-item" style="background:var(--surface-2);display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">More Coming</span>
+    </div>
+    <!-- Duplicate for seamless loop -->
+    <div class="reel-item">
+      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia">
+      <span class="reel-label">Cassia Auckland</span>
+    </div>
+    <div class="reel-item" style="background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">Make-A-Wish NZ</span>
+    </div>
+    <div class="reel-item" style="background:linear-gradient(135deg,#1c1a10,#2a2416);display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">Barry's Bakery</span>
+    </div>
+    <div class="reel-item">
+      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/dcc53125-69a1-4db1-86ed-de9564a839e5/Screenshot+2026-05-31+at+12.22.44%E2%80%AFPM.png" alt="Cassia food">
+      <span class="reel-label">Cassia — Menu</span>
+    </div>
+    <div class="reel-item" style="background:var(--surface-2);display:flex;align-items:center;justify-content:center;">
+      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">More Coming</span>
+    </div>
+  </div>
+</section>
 
-    <!-- Skills Preview -->
-    <section class="skills-preview" id="skills">
-        <div class="container">
-            <h2 class="gradient-text" style="margin-bottom: 4rem; text-align: center;">What I Do</h2>
-            
-            <div class="grid grid-3" style="gap: 2rem;">
-                <div class="card">
-                    <p class="mono" style="color: var(--accent-purple); margin-bottom: 1rem; font-size: 2rem;">📱</p>
-                    <h3>Platform Strategy</h3>
-                    <p style="color: var(--text-secondary); margin-top: 1rem;">Instagram, TikTok, Meta ecosystem. I know where your audience hangs and how to reach them.</p>
-                </div>
-                <div class="card">
-                    <p class="mono" style="color: var(--accent-cyan); margin-bottom: 1rem; font-size: 2rem;">🎨</p>
-                    <h3>Creative Direction</h3>
-                    <p style="color: var(--text-secondary); margin-top: 1rem;">From concept to execution. Canva, Adobe Suite, CapCut - I create assets that stop scrolls.</p>
-                </div>
-                <div class="card">
-                    <p class="mono" style="color: var(--accent-pink); margin-bottom: 1rem; font-size: 2rem;">📊</p>
-                    <h3>Data & Analysis</h3>
-                    <p style="color: var(--text-secondary); margin-top: 1rem;">Numbers tell stories. I dig into metrics to find opportunities and prove ROI.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="work">
+  <div class="section-head reveal">
+    <span class="label">Other Work</span>
+    <div class="section-rule"></div>
+  </div>
+  <div class="work-grid">
+    <div class="work-card reveal">
+      <span class="num">01</span>
+      <h3>Make-A-Wish NZ — Donor Acquisition</h3>
+      <p>Developed a full donor acquisition strategy using the SPECH framework. Focused on logic-first messaging to drive high-value monthly giving for a national charity.</p>
+      <div class="card-tags">
+        <span class="tag">Strategy</span>
+        <span class="tag">Meta Ads</span>
+        <span class="tag">Copywriting</span>
+      </div>
+    </div>
+    <div class="work-card reveal">
+      <span class="num">02</span>
+      <h3>Barry's Bakery — Social Media Audit</h3>
+      <p>Competitive analysis uncovering a 300% video performance advantage over competitors. Delivered a strategic roadmap with projected ROI improvements across organic social.</p>
+      <div class="card-tags">
+        <span class="tag">Analytics</span>
+        <span class="tag">Reporting</span>
+        <span class="tag">Strategy</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <!-- CTA Section -->
-    <section class="cta" style="padding: 6rem 0;">
-        <div class="container" style="text-align: center;">
-            <h2 class="gradient-text" style="margin-bottom: 2rem;">Ready to Build Something?</h2>
-            <p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 3rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-                Let's talk about your next campaign. Whether it's strategy, content, or full-scale execution—I'm here to help.
-            </p>
-            <a href="contact.html" class="btn btn-primary">Start a Conversation</a>
-        </div>
-    </section>
+<section class="about" id="about">
+  <div class="about-img-wrap reveal">
+    <img src="https://i.imgur.com/Zpt2KGW.jpeg" alt="Tristan Franks" class="about-img">
+    <div class="about-accent">
+      <span class="big">19</span>
+      <span class="small">Years<br>Old</span>
+    </div>
+  </div>
+  <div class="about-text reveal">
+    <span class="label">About Me</span>
+    <h2>Auckland-based.<br><span>Marketing-obsessed.</span></h2>
+    <p>I'm a recent NZIE Social Media Marketing Diploma graduate who actually lives on the internet. I get what performs on TikTok and Instagram because I'm on there — not because I read a report about it.</p>
+    <p>Most recently I redesigned the full website for Cassia Auckland, a Michelin Guide Selected restaurant, handling everything from the design system to the copy to the animations. Currently looking for my next opportunity in digital marketing.</p>
+    <div class="tools-grid">
+      <span class="tool">Canva</span>
+      <span class="tool">Premiere Pro</span>
+      <span class="tool">After Effects</span>
+      <span class="tool">CapCut</span>
+      <span class="tool">Meta Ads</span>
+      <span class="tool">TikTok for Business</span>
+      <span class="tool">Meta Business Suite</span>
+    </div>
+  </div>
+</section>
 
-    <!-- Footer -->
-    <footer style="border-top: 1px solid var(--border-color); padding: 3rem 0; text-align: center; color: var(--text-secondary);">
-        <div class="container">
-            <p>© 2025 Tristan Franks. Built with intent.</p>
-        </div>
-    </footer>
+<section class="contact" id="contact">
+  <span class="label">Get In Touch</span>
+  <h2>Let's build<br><span>something.</span></h2>
+  <p>Looking for a marketing role in Auckland. Open to full-time, part-time, and freelance work.</p>
+  <div class="contact-links">
+    <a href="mailto:tnfranks25@gmail.com" class="contact-link">Email Me ↗</a>
+    <a href="https://nz.linkedin.com/in/tristan-franks-aa6a62381" target="_blank" class="contact-link">LinkedIn ↗</a>
+    <a href="https://tristanfnz.github.io/portfolio" target="_blank" class="contact-link">Current Site ↗</a>
+  </div>
+</section>
 
-    <style>
-        .hero {
-            padding: 8rem 0 4rem;
-        }
+<footer>
+  <span>© 2026 Tristan Franks</span>
+  <span>Auckland, New Zealand</span>
+</footer>
 
-        .hero-content {
-            max-width: 800px;
-        }
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobile-nav');
+  function openMenu(){
+    mobileNav.style.display='flex';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>mobileNav.classList.add('is-open')));
+    hamburger.classList.add('is-open');
+    document.body.style.overflow='hidden';
+  }
+  function closeMenu(){
+    mobileNav.classList.remove('is-open');
+    hamburger.classList.remove('is-open');
+    document.body.style.overflow='';
+    setTimeout(()=>{mobileNav.style.display='none';},300);
+  }
+  hamburger.addEventListener('click',()=>mobileNav.classList.contains('is-open')?closeMenu():openMenu());
+  mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
 
-        .work-card {
-            transition: all 0.3s ease;
-        }
-
-        .work-card:hover {
-            transform: translateY(-12px);
-        }
-
-        /* Dropdown menu styling */
-        nav ul > li {
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        nav .dropdown {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            background: var(--dark-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 0.5rem;
-            width: 150px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 100;
-            pointer-events: none;
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 0 !important;
-            line-height: 1;
-        }
-
-        nav .dropdown li {
-            display: block !important;
-            width: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
-        nav ul > li:hover .dropdown {
-            opacity: 1;
-            visibility: visible;
-            pointer-events: auto;
-        }
-
-        nav .dropdown a {
-            display: block;
-            margin: 0;
-            line-height: 1;
-            padding: 0.35rem 0.75rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        nav .dropdown a:hover {
-            color: var(--text-primary);
-            background: rgba(168, 85, 247, 0.1);
-            padding-left: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 4rem 0 2rem;
-            }
-
-            .hero-stats {
-                grid-template-columns: 1fr !important;
-            }
-        }
-    </style>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target);}
+    });
+  },{threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+</script>
 </body>
 </html>
