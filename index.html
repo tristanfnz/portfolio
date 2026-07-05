@@ -93,24 +93,13 @@
 
   /* HERO */
   .hero{
-    min-height:94vh;
+    min-height:auto;
     display:flex;flex-direction:column;justify-content:center;
-    padding:0 6vw;
+    padding:100px 6vw 0;
     position:relative;
-    overflow:hidden;
+    overflow-x:hidden;
   }
-  .hero-bg-text{
-    position:absolute;
-    right:-2vw;top:50%;transform:translateY(-50%);
-    font-family:'Syne',sans-serif;
-    font-weight:800;
-    font-size:clamp(8rem,18vw,22rem);
-    line-height:1;
-    color:rgba(255,255,255,0.018);
-    pointer-events:none;
-    user-select:none;
-    white-space:nowrap;
-  }
+
   .hero-inner{max-width:900px;position:relative;z-index:2;}
   .hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:28px;}
   .hero-dot{width:8px;height:8px;border-radius:50%;background:var(--lime);animation:pulse 2s ease-in-out infinite;}
@@ -119,8 +108,9 @@
     font-family:'Syne',sans-serif;
     font-weight:800;
     font-size:clamp(3rem,8vw,7rem);
-    line-height:0.96;
+    line-height:1.05;
     letter-spacing:-0.03em;
+    padding-bottom:0.15em;
   }
   .hero h1 .highlight{
     color:var(--lime);
@@ -156,7 +146,7 @@
 
   /* TOOLS TICKER */
   .ticker{
-    margin-top:64px;
+    margin-top:36px;
     border-top:1px solid var(--border);
     border-bottom:1px solid var(--border);
     padding:14px 0;
@@ -174,8 +164,8 @@
   @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
   /* FEATURED CASSIA */
-  .featured{padding:8vw 6vw;}
-  .section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:48px;}
+  .featured{padding:48px 6vw;}
+  .section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:32px;}
   .section-head h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.4rem,2.5vw,2rem);}
   .section-rule{flex:1;height:1px;background:var(--border);}
 
@@ -220,6 +210,7 @@
     font-family:'Syne',sans-serif;font-weight:700;
     font-size:clamp(1.6rem,2.5vw,2.2rem);
     line-height:1.1;
+    padding-bottom:0.08em;
   }
   .cassia-info p{color:var(--muted);line-height:1.65;font-size:0.97rem;}
   .cassia-info .michelin-note{
@@ -243,18 +234,18 @@
 
   /* REEL STRIP */
   .reel{
-    padding:0 0 8vw;
+    padding:0 0 48px;
     overflow:hidden;
   }
   .reel-head{padding:0 6vw;margin-bottom:28px;}
   .reel-track{
     display:flex;gap:16px;
-    animation:reel 28s linear infinite;
+    animation:reel 32s linear infinite;
     width:max-content;
     padding:0 6vw;
   }
   .reel-track:hover{animation-play-state:paused;}
-  @keyframes reel{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @keyframes reel{0%{transform:translateX(0);}100%{transform:translateX(calc(-50% - 8px));}}
   .reel-item{
     flex-shrink:0;width:260px;height:170px;
     border-radius:3px;
@@ -272,43 +263,75 @@
   }
 
   /* OTHER WORK */
-  .work{padding:0 6vw 8vw;}
+  .work{padding:0 6vw 32px;}
   .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   .work-card{
     background:var(--surface);
     border:1px solid var(--border);
     border-radius:3px;
-    padding:36px 32px;
+    overflow:hidden;
     transition:border-color 0.25s ease,transform 0.25s ease;
     cursor:default;
   }
   .work-card:hover{border-color:rgba(200,255,87,0.2);transform:translateY(-3px);}
-  .work-card .num{
+  .work-card-header{
+    padding:28px 32px 24px;
+    border-bottom:1px solid var(--border);
+    display:flex;align-items:center;justify-content:space-between;
+  }
+  .work-card-header .num{
     font-family:'Space Mono',monospace;
     font-size:0.7rem;color:var(--lime);
-    display:block;margin-bottom:20px;
   }
+  .work-card-header .coursework-tag{
+    font-family:'Space Mono',monospace;
+    font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;
+    color:var(--muted);border:1px solid var(--border);
+    padding:3px 8px;border-radius:2px;
+  }
+  .work-card-body{padding:28px 32px 32px;}
   .work-card h3{
     font-family:'Syne',sans-serif;
-    font-weight:700;font-size:1.25rem;
-    margin-bottom:10px;
+    font-weight:700;font-size:1.2rem;
+    margin-bottom:12px;
   }
-  .work-card p{color:var(--muted);font-size:0.92rem;line-height:1.6;}
+  .work-card p{color:var(--muted);font-size:0.92rem;line-height:1.65;}
   .work-card .card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px;}
+  .work-stats{
+    display:flex;gap:0;margin-top:20px;margin-bottom:4px;
+    border:1px solid var(--border);border-radius:3px;overflow:hidden;
+  }
+  .stat{
+    flex:1;padding:14px 16px;
+    border-right:1px solid var(--border);
+  }
+  .stat:last-child{border-right:none;}
+  .stat-num{
+    display:block;
+    font-family:'Syne',sans-serif;font-weight:800;
+    font-size:1.3rem;color:var(--lime);
+    line-height:1;margin-bottom:4px;
+  }
+  .stat-label{
+    font-family:'Space Mono',monospace;
+    font-size:0.6rem;letter-spacing:0.06em;
+    text-transform:uppercase;color:var(--muted);
+  }
 
   /* ABOUT */
   .about{
-    padding:8vw 6vw;
+    padding:60px 6vw;
     display:grid;grid-template-columns:1fr 1fr;
-    gap:8vw;align-items:center;
+    gap:6vw;align-items:start;
     border-top:1px solid var(--border);
   }
   .about-img-wrap{position:relative;}
   .about-img{
-    width:100%;aspect-ratio:4/5;
+    width:100%;aspect-ratio:3/4;
     object-fit:cover;border-radius:3px;
     filter:grayscale(15%);
     border:1px solid var(--border);
+    object-position:center top;
   }
   .about-img-placeholder{
     width:100%;aspect-ratio:4/5;
@@ -320,18 +343,17 @@
   }
   .about-img-placeholder span{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;}
   .about-accent{
-    position:absolute;bottom:-16px;right:-16px;
-    width:120px;height:120px;
-    background:var(--lime-dim);
-    border:1px solid rgba(200,255,87,0.15);
+    position:absolute;bottom:16px;right:16px;
+    background:var(--ink);
+    border:1px solid var(--lime);
     border-radius:3px;
-    display:flex;align-items:center;justify-content:center;
-    flex-direction:column;gap:4px;
+    padding:12px 16px;
+    display:flex;align-items:center;gap:10px;
   }
-  .about-accent .big{font-family:'Syne',sans-serif;font-weight:800;font-size:2rem;color:var(--lime);}
-  .about-accent .small{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);text-align:center;}
+  .about-accent .big{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--lime);line-height:1;}
+  .about-accent .small{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text);line-height:1.4;}
   .about-text{display:flex;flex-direction:column;gap:20px;}
-  .about-text h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.1;}
+  .about-text h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.2;padding-bottom:0.1em;}
   .about-text h2 span{color:var(--lime);}
   .about-text p{color:var(--muted);line-height:1.7;font-size:0.97rem;}
   .tools-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
@@ -346,7 +368,7 @@
 
   /* CONTACT */
   .contact{
-    padding:8vw 6vw;
+    padding:72px 6vw;
     text-align:center;
     border-top:1px solid var(--border);
     background:var(--surface);
@@ -354,8 +376,9 @@
   .contact h2{
     font-family:'Syne',sans-serif;font-weight:800;
     font-size:clamp(2.5rem,6vw,5rem);
-    line-height:1;letter-spacing:-0.02em;
+    line-height:1.1;letter-spacing:-0.02em;
     margin:16px 0 20px;
+    padding-bottom:0.1em;
   }
   .contact h2 span{color:var(--lime);}
   .contact p{color:var(--muted);max-width:420px;margin:0 auto 36px;line-height:1.65;}
@@ -417,7 +440,6 @@
 </div>
 
 <section class="hero">
-  <div class="hero-bg-text">TF</div>
   <div class="hero-inner">
     <div class="hero-eyebrow">
       <div class="hero-dot"></div>
@@ -425,7 +447,7 @@
     </div>
     <h1>Tristan<br><span class="highlight">Franks</span>.<br>Marketing.</h1>
     <p class="hero-sub">
-      <strong>Social media marketer and creative based in Auckland.</strong> I build campaigns, content, and digital experiences that actually connect with people — not just fill a feed.
+      Social media marketer and creative based in Auckland. <strong>Building campaigns, content, and digital experiences that actually connect — not just fill a feed.</strong>
     </p>
     <div class="hero-actions">
       <a href="#work" class="btn-primary">See My Work</a>
@@ -536,23 +558,45 @@
   </div>
   <div class="work-grid">
     <div class="work-card reveal">
-      <span class="num">01</span>
-      <h3>Make-A-Wish NZ — Donor Acquisition</h3>
-      <p>Developed a full donor acquisition strategy using the SPECH framework. Focused on logic-first messaging to drive high-value monthly giving for a national charity.</p>
-      <div class="card-tags">
-        <span class="tag">Strategy</span>
-        <span class="tag">Meta Ads</span>
-        <span class="tag">Copywriting</span>
+      <div class="work-card-header">
+        <span class="num">01</span>
+        <span class="coursework-tag">Diploma Project</span>
+      </div>
+      <div class="work-card-body">
+        <h3>Make-A-Wish NZ — Donor Acquisition Strategy</h3>
+        <p>Built a full donor acquisition strategy using the SPECH framework. Developed logic-first ad messaging and audience segmentation designed to drive high-value monthly giving across Meta platforms.</p>
+        <div class="work-stats">
+          <div class="stat"><span class="stat-num">180K+</span><span class="stat-label">Est. Reach</span></div>
+          <div class="stat"><span class="stat-num">3</span><span class="stat-label">Ad Variants</span></div>
+          <div class="stat"><span class="stat-num">Meta</span><span class="stat-label">Platform</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Strategy</span>
+          <span class="tag">Meta Ads</span>
+          <span class="tag">Copywriting</span>
+          <span class="tag">Audience Segmentation</span>
+        </div>
       </div>
     </div>
     <div class="work-card reveal">
-      <span class="num">02</span>
-      <h3>Barry's Bakery — Social Media Audit</h3>
-      <p>Competitive analysis uncovering a 300% video performance advantage over competitors. Delivered a strategic roadmap with projected ROI improvements across organic social.</p>
-      <div class="card-tags">
-        <span class="tag">Analytics</span>
-        <span class="tag">Reporting</span>
-        <span class="tag">Strategy</span>
+      <div class="work-card-header">
+        <span class="num">02</span>
+        <span class="coursework-tag">Diploma Project</span>
+      </div>
+      <div class="work-card-body">
+        <h3>Barry's Bakery — Social Media Analysis</h3>
+        <p>Competitive analysis revealing Barry's video content outperformed competitors by 300%. Delivered a strategic roadmap covering content pillars, posting cadence, and platform-specific optimisation recommendations.</p>
+        <div class="work-stats">
+          <div class="stat"><span class="stat-num">300%</span><span class="stat-label">Video Edge</span></div>
+          <div class="stat"><span class="stat-num">4</span><span class="stat-label">Competitors</span></div>
+          <div class="stat"><span class="stat-num">Organic</span><span class="stat-label">Focus</span></div>
+        </div>
+        <div class="card-tags">
+          <span class="tag">Analytics</span>
+          <span class="tag">Competitor Research</span>
+          <span class="tag">Reporting</span>
+          <span class="tag">Strategy</span>
+        </div>
       </div>
     </div>
   </div>
@@ -590,7 +634,7 @@
   <div class="contact-links">
     <a href="mailto:tnfranks25@gmail.com" class="contact-link">Email Me ↗</a>
     <a href="https://nz.linkedin.com/in/tristan-franks-aa6a62381" target="_blank" class="contact-link">LinkedIn ↗</a>
-    <a href="https://tristanfnz.github.io/portfolio" target="_blank" class="contact-link">Current Site ↗</a>
+    <a href="https://drive.google.com/file/d/113CSmlBQam1cCMwykZMddb7583THpJlB/view?usp=sharing" target="_blank" class="contact-link">Request CV ↗</a>
   </div>
 </section>
 
