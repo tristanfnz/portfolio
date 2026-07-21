@@ -4,417 +4,135 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tristan Franks — Social Media & Creative Marketing</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case-study.css">
 <style>
-  :root{
-    --ink:#0C0E1A;
-    --surface:#13162A;
-    --surface-2:#1A1E35;
-    --lime:#C8FF57;
-    --lime-dim:rgba(200,255,87,0.12);
-    --text:#EEEEF0;
-    --muted:#6B7280;
-    --border:rgba(255,255,255,0.07);
-  }
-
-  *{margin:0;padding:0;box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    background:var(--ink);
-    color:var(--text);
-    font-family:'Inter',sans-serif;
-    -webkit-font-smoothing:antialiased;
-    overflow-x:hidden;
-  }
-
-  /* GRAIN */
+  /* ============ HOMEPAGE-ONLY ADDITIONS ============ */
   .grain{
-    position:fixed;inset:0;pointer-events:none;z-index:100;opacity:0.03;mix-blend-mode:overlay;
+    position:fixed;inset:0;pointer-events:none;z-index:100;opacity:0.025;mix-blend-mode:overlay;
     background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  /* UTILS */
-  .label{
-    font-family:'Space Mono',monospace;
-    font-size:0.68rem;
-    letter-spacing:0.12em;
-    text-transform:uppercase;
-    color:var(--lime);
-  }
-  .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.8s ease,transform 0.8s ease;}
-  .reveal.is-visible{opacity:1;transform:translateY(0);}
-
-  /* NAV */
-  nav{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:24px 6vw;
-    position:sticky;top:0;z-index:50;
-    background:rgba(12,14,26,0.85);
-    backdrop-filter:blur(12px);
-    border-bottom:1px solid var(--border);
-  }
-  .nav-logo{
-    font-family:'Syne',sans-serif;
-    font-weight:800;
-    font-size:1.1rem;
-    letter-spacing:-0.01em;
-    color:var(--text);
-    text-decoration:none;
-  }
-  .nav-logo span{color:var(--lime);}
-  nav ul{list-style:none;display:flex;gap:32px;align-items:center;}
-  nav a{color:var(--text);text-decoration:none;font-size:0.85rem;opacity:0.7;transition:opacity 0.2s;}
-  nav a:hover{opacity:1;}
-  .nav-cta{
-    background:var(--lime);color:var(--ink);
-    padding:9px 20px;border-radius:2px;
-    font-weight:600;font-size:0.82rem;
-    opacity:1 !important;
-    transition:transform 0.2s ease, box-shadow 0.2s ease;
-  }
-  .nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(200,255,87,0.25);}
-
-  /* HAMBURGER */
-  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;z-index:60;}
-  .hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px;transition:transform 0.3s ease,opacity 0.3s ease;}
-  .hamburger.is-open span:nth-child(1){transform:translateY(7px) rotate(45deg);}
-  .hamburger.is-open span:nth-child(2){opacity:0;}
-  .hamburger.is-open span:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
-  .mobile-nav{
-    display:none;position:fixed;inset:0;background:var(--ink);z-index:55;
-    flex-direction:column;align-items:center;justify-content:center;gap:28px;
-    opacity:0;transition:opacity 0.3s ease;pointer-events:none;
-  }
-  .mobile-nav.is-open{opacity:1;pointer-events:auto;}
-  .mobile-nav a{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:700;color:var(--text);text-decoration:none;transition:color 0.2s;}
-  .mobile-nav a:hover{color:var(--lime);}
-  .mobile-nav .m-cta{background:var(--lime);color:var(--ink);padding:14px 36px;border-radius:2px;font-size:1rem;margin-top:12px;}
-
-  /* HERO */
-  .hero{
-    min-height:auto;
-    display:flex;flex-direction:column;justify-content:center;
-    padding:100px 6vw 0;
-    position:relative;
-    overflow-x:hidden;
-  }
-
-  .hero-inner{max-width:900px;position:relative;z-index:2;}
-  .hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:28px;}
-  .hero-dot{width:8px;height:8px;border-radius:50%;background:var(--lime);animation:pulse 2s ease-in-out infinite;}
+  .hero-eyebrow{display:inline-flex;align-items:center;gap:10px;margin-bottom:24px;}
+  .hero-dot{width:7px;height:7px;border-radius:50%;background:var(--accent-2);animation:pulse 2s ease-in-out infinite;}
   @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.5;transform:scale(0.8);}}
-  .hero h1{
-    font-family:'Syne',sans-serif;
-    font-weight:800;
-    font-size:clamp(3rem,8vw,7rem);
-    line-height:1.05;
-    letter-spacing:-0.03em;
-    padding-bottom:0.15em;
-  }
-  .hero h1 .highlight{
-    color:var(--lime);
-    position:relative;
-    display:inline-block;
-  }
-  .hero-sub{
-    margin-top:28px;
-    font-size:1.1rem;
-    color:var(--muted);
-    max-width:480px;
-    line-height:1.65;
-  }
-  .hero-sub strong{color:var(--text);}
-  .hero-actions{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap;align-items:center;}
-  .btn-primary{
-    background:var(--lime);color:var(--ink);
-    padding:14px 28px;border-radius:2px;
-    font-weight:600;font-size:0.9rem;
-    text-decoration:none;
-    transition:transform 0.2s,box-shadow 0.2s;
-    display:inline-block;
-  }
-  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 28px rgba(200,255,87,0.25);}
-  .btn-ghost{
-    color:var(--text);text-decoration:none;
-    font-size:0.9rem;opacity:0.6;
-    display:inline-flex;align-items:center;gap:8px;
-    transition:opacity 0.2s;
-  }
-  .btn-ghost:hover{opacity:1;}
-  .btn-ghost::after{content:"↗";}
 
   /* TOOLS TICKER */
-  .ticker{
-    margin-top:36px;
-    border-top:1px solid var(--border);
-    border-bottom:1px solid var(--border);
-    padding:14px 0;
-    overflow:hidden;
-  }
-  .ticker-track{display:inline-flex;animation:ticker 22s linear infinite;}
+  .ticker{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:14px 0;overflow:hidden;margin-top:56px;}
+  .ticker-track{display:inline-flex;animation:ticker 24s linear infinite;}
+  .ticker-track:hover{animation-play-state:paused;}
   .ticker span{
-    font-family:'Space Mono',monospace;
-    font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
-    color:var(--muted);padding:0 24px;
-    display:inline-flex;align-items:center;gap:24px;
-    white-space:nowrap;
+    font-family:'Space Grotesk',sans-serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;
+    color:var(--text-dim);padding:0 22px;display:inline-flex;align-items:center;gap:22px;white-space:nowrap;
   }
-  .ticker span::after{content:"✦";color:var(--lime);font-size:0.55rem;}
+  .ticker span::after{content:"✦";color:var(--accent-2);font-size:0.55rem;}
   @keyframes ticker{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-  /* FEATURED CASSIA */
-  .featured{padding:48px 6vw;}
-  .section-head{display:flex;align-items:baseline;gap:16px;margin-bottom:32px;}
-  .section-head h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.4rem,2.5vw,2rem);}
-  .section-rule{flex:1;height:1px;background:var(--border);}
-
+  /* FEATURED / CASSIA */
+  .featured{padding:0 0 90px;}
   .cassia-card{
     display:grid;grid-template-columns:1fr 1fr;gap:0;
-    background:var(--surface);border-radius:4px;
-    border:1px solid var(--border);
-    overflow:hidden;
-    transition:transform 0.3s ease,box-shadow 0.3s ease;
+    background:var(--bg-2);border-radius:16px;border:1px solid var(--line);
+    overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease;
   }
-  .cassia-card:hover{transform:translateY(-4px);box-shadow:0 24px 48px rgba(0,0,0,0.4);}
+  .cassia-card:hover{transform:translateY(-4px);box-shadow:0 30px 70px rgba(0,0,0,0.45);}
   .cassia-preview{
-    position:relative;
+    position:relative;min-height:420px;
     background:
-      linear-gradient(135deg,rgba(12,14,26,0.3),rgba(12,14,26,0.7)),
+      linear-gradient(135deg,rgba(11,12,16,0.25),rgba(11,12,16,0.75)),
       url('https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg') center/cover no-repeat;
-    min-height:460px;
   }
   .cassia-badge{
-    position:absolute;top:24px;left:24px;
-    background:rgba(12,14,26,0.85);
-    backdrop-filter:blur(8px);
-    border:1px solid rgba(200,255,87,0.25);
-    padding:8px 14px;border-radius:2px;
-    font-family:'Space Mono',monospace;
-    font-size:0.65rem;letter-spacing:0.1em;text-transform:uppercase;
-    color:var(--lime);
+    position:absolute;top:24px;left:24px;background:rgba(11,12,16,0.85);backdrop-filter:blur(8px);
+    border:1px solid rgba(139,147,255,0.3);padding:8px 14px;border-radius:20px;
+    font-family:'Space Grotesk',sans-serif;font-size:0.68rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent-2);
   }
-  .cassia-info{
-    padding:48px 40px;
-    display:flex;flex-direction:column;justify-content:center;gap:20px;
-  }
+  .cassia-info{padding:52px 44px;display:flex;flex-direction:column;justify-content:center;gap:20px;}
   .cassia-info .project-type{display:flex;gap:8px;flex-wrap:wrap;}
   .tag{
-    font-family:'Space Mono',monospace;font-size:0.62rem;
-    letter-spacing:0.06em;text-transform:uppercase;
-    border:1px solid var(--border);
-    padding:4px 10px;border-radius:2px;
-    color:var(--muted);
+    font-family:'Space Grotesk',sans-serif;font-size:0.65rem;letter-spacing:0.06em;text-transform:uppercase;
+    border:1px solid var(--line);padding:5px 11px;border-radius:20px;color:var(--text-dim);
   }
-  .cassia-info h3{
-    font-family:'Syne',sans-serif;font-weight:700;
-    font-size:clamp(1.6rem,2.5vw,2.2rem);
-    line-height:1.1;
-    padding-bottom:0.08em;
+  .cassia-info h3{font-size:clamp(1.5rem,2.5vw,2rem);line-height:1.15;}
+  .cassia-info p{color:var(--text-dim);line-height:1.7;font-size:0.96rem;}
+  .michelin-note{
+    display:flex;align-items:center;gap:10px;padding:12px 16px;
+    background:rgba(91,110,245,0.1);border:1px solid rgba(91,110,245,0.25);border-radius:10px;font-size:0.85rem;color:var(--text-dim);
   }
-  .cassia-info p{color:var(--muted);line-height:1.65;font-size:0.97rem;}
-  .cassia-info .michelin-note{
-    display:flex;align-items:center;gap:10px;
-    padding:12px 16px;
-    background:var(--lime-dim);
-    border:1px solid rgba(200,255,87,0.2);
-    border-radius:2px;
-    font-size:0.85rem;
-  }
-  .cassia-info .michelin-note strong{color:var(--lime);}
+  .michelin-note strong{color:var(--accent-2);}
   .project-link{
-    display:inline-flex;align-items:center;gap:8px;
-    color:var(--lime);text-decoration:none;
-    font-weight:600;font-size:0.9rem;
-    margin-top:8px;
-    transition:gap 0.2s ease;
+    display:inline-flex;align-items:center;gap:8px;color:var(--accent-2);text-decoration:none;
+    font-weight:600;font-size:0.9rem;margin-top:4px;transition:gap 0.2s ease;
   }
   .project-link:hover{gap:14px;}
   .project-link::after{content:"→";}
 
-  /* REEL STRIP */
-  .reel{
-    padding:0 0 48px;
-    overflow:hidden;
-  }
-  .reel-head{padding:0 6vw;margin-bottom:28px;}
-  .reel-track{
-    display:flex;gap:16px;
-    animation:reel 32s linear infinite;
-    width:max-content;
-    padding:0 6vw;
-  }
+  /* REEL */
+  .reel{padding:0 0 90px;overflow:hidden;}
+  .reel-track{display:flex;gap:16px;animation:reel 34s linear infinite;width:max-content;}
   .reel-track:hover{animation-play-state:paused;}
   @keyframes reel{0%{transform:translateX(0);}100%{transform:translateX(calc(-50% - 8px));}}
   .reel-item{
-    flex-shrink:0;width:260px;height:170px;
-    border-radius:3px;
-    border:1px solid var(--border);
-    background:var(--surface);
-    overflow:hidden;position:relative;
+    flex-shrink:0;width:260px;height:170px;border-radius:12px;border:1px solid var(--line);
+    background:var(--bg-2);overflow:hidden;position:relative;display:flex;align-items:center;justify-content:center;
   }
   .reel-item img{width:100%;height:100%;object-fit:cover;opacity:0.75;transition:opacity 0.3s;}
   .reel-item:hover img{opacity:1;}
-  .reel-item .reel-label{
-    position:absolute;bottom:10px;left:12px;
-    font-family:'Space Mono',monospace;
-    font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;
-    color:var(--text);opacity:0.7;
+  .reel-item span.reel-label{
+    position:absolute;bottom:10px;left:12px;font-family:'Space Grotesk',sans-serif;
+    font-size:0.6rem;letter-spacing:0.08em;text-transform:uppercase;color:var(--text);opacity:0.75;
+  }
+  .reel-item .placeholder-label{
+    font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:600;color:var(--accent-2);opacity:0.7;
   }
 
-  /* OTHER WORK */
-  .work{padding:0 6vw 32px;}
-  .work-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
-  .work-card{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:3px;
-    overflow:hidden;
-    transition:border-color 0.25s ease,transform 0.25s ease;
-    cursor:default;
-  }
-  .work-card:hover{border-color:rgba(200,255,87,0.2);transform:translateY(-3px);}
-  .work-card-header{
-    padding:28px 32px 24px;
-    border-bottom:1px solid var(--border);
-    display:flex;align-items:center;justify-content:space-between;
-  }
-  .work-card-header .num{
-    font-family:'Space Mono',monospace;
-    font-size:0.7rem;color:var(--lime);
-  }
-  .work-card-header .coursework-tag{
-    font-family:'Space Mono',monospace;
-    font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;
-    color:var(--muted);border:1px solid var(--border);
-    padding:3px 8px;border-radius:2px;
-  }
-  .work-card-body{padding:28px 32px 32px;}
-  .work-card h3{
-    font-family:'Syne',sans-serif;
-    font-weight:700;font-size:1.2rem;
-    margin-bottom:12px;
-  }
-  .work-card p{color:var(--muted);font-size:0.92rem;line-height:1.65;}
-  .work-card .card-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:20px;}
-  .work-stats{
-    display:flex;gap:0;margin-top:20px;margin-bottom:4px;
-    border:1px solid var(--border);border-radius:3px;overflow:hidden;
-  }
-  .stat{
-    flex:1;padding:14px 16px;
-    border-right:1px solid var(--border);
-  }
-  .stat:last-child{border-right:none;}
-  .stat-num{
-    display:block;
-    font-family:'Syne',sans-serif;font-weight:800;
-    font-size:1.3rem;color:var(--lime);
-    line-height:1;margin-bottom:4px;
-  }
-  .stat-label{
-    font-family:'Space Mono',monospace;
-    font-size:0.6rem;letter-spacing:0.06em;
-    text-transform:uppercase;color:var(--muted);
-  }
+  /* WORK STATS MINI-ROW (inside feat cards) */
+  .mini-stats{display:flex;gap:0;margin:16px 0;border:1px solid var(--line);border-radius:10px;overflow:hidden;}
+  .mini-stats .cell{flex:1;padding:12px 14px;border-right:1px solid var(--line);}
+  .mini-stats .cell:last-child{border-right:none;}
+  .mini-stats .cell .n{display:block;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.1rem;color:var(--accent-2);}
+  .mini-stats .cell .l{font-size:0.62rem;letter-spacing:0.05em;text-transform:uppercase;color:var(--text-dim);}
+  .feat .card-tags{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0;}
 
   /* ABOUT */
-  .about{
-    padding:60px 6vw;
-    display:grid;grid-template-columns:1fr 1fr;
-    gap:6vw;align-items:start;
-    border-top:1px solid var(--border);
-  }
+  .about-sec{padding:90px 0;display:grid;grid-template-columns:0.8fr 1fr;gap:6vw;align-items:start;border-top:1px solid var(--line);}
   .about-img-wrap{position:relative;}
-  .about-img{
-    width:100%;aspect-ratio:3/4;
-    object-fit:cover;border-radius:3px;
-    filter:grayscale(15%);
-    border:1px solid var(--border);
-    object-position:center top;
-  }
-  .about-img-placeholder{
-    width:100%;aspect-ratio:4/5;
-    background:var(--surface-2);
-    border-radius:3px;
-    border:1px solid var(--border);
-    display:flex;align-items:center;justify-content:center;
-    flex-direction:column;gap:12px;
-  }
-  .about-img-placeholder span{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--muted);text-align:center;line-height:1.6;}
+  .about-img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center top;border-radius:14px;border:1px solid var(--line);filter:grayscale(10%);}
   .about-accent{
-    position:absolute;bottom:16px;right:16px;
-    background:var(--ink);
-    border:1px solid var(--lime);
-    border-radius:3px;
-    padding:12px 16px;
-    display:flex;align-items:center;gap:10px;
+    position:absolute;bottom:16px;right:16px;background:var(--bg);border:1px solid var(--accent);
+    border-radius:10px;padding:12px 16px;display:flex;align-items:center;gap:10px;
   }
-  .about-accent .big{font-family:'Syne',sans-serif;font-weight:800;font-size:1.6rem;color:var(--lime);line-height:1;}
-  .about-accent .small{font-family:'Space Mono',monospace;font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text);line-height:1.4;}
+  .about-accent .big{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.5rem;color:var(--accent-2);line-height:1;}
+  .about-accent .small{font-size:0.6rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--text);line-height:1.4;}
   .about-text{display:flex;flex-direction:column;gap:20px;}
-  .about-text h2{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.8rem,3vw,2.6rem);line-height:1.2;padding-bottom:0.1em;}
-  .about-text h2 span{color:var(--lime);}
-  .about-text p{color:var(--muted);line-height:1.7;font-size:0.97rem;}
-  .tools-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px;}
+  .about-text h2{font-size:clamp(1.9rem,3vw,2.6rem);line-height:1.2;}
+  .about-text h2 span{color:var(--accent-2);}
+  .about-text p{color:var(--text-dim);line-height:1.75;font-size:0.97rem;}
+  .tools-grid{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
   .tool{
-    font-family:'Space Mono',monospace;font-size:0.65rem;
-    letter-spacing:0.06em;text-transform:uppercase;
-    background:var(--surface-2);
-    border:1px solid var(--border);
-    padding:6px 12px;border-radius:2px;
-    color:var(--text);
+    font-family:'Space Grotesk',sans-serif;font-size:0.68rem;letter-spacing:0.05em;text-transform:uppercase;
+    background:var(--bg-2);border:1px solid var(--line);padding:7px 13px;border-radius:20px;color:var(--text);
   }
 
   /* CONTACT */
-  .contact{
-    padding:72px 6vw;
-    text-align:center;
-    border-top:1px solid var(--border);
-    background:var(--surface);
-  }
-  .contact h2{
-    font-family:'Syne',sans-serif;font-weight:800;
-    font-size:clamp(2.5rem,6vw,5rem);
-    line-height:1.1;letter-spacing:-0.02em;
-    margin:16px 0 20px;
-    padding-bottom:0.1em;
-  }
-  .contact h2 span{color:var(--lime);}
-  .contact p{color:var(--muted);max-width:420px;margin:0 auto 36px;line-height:1.65;}
-  .contact-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;}
+  .contact-sec{padding:90px 0;text-align:center;border-top:1px solid var(--line);background:var(--bg-2);}
+  .contact-sec h2{font-size:clamp(2.4rem,5.5vw,4rem);line-height:1.1;margin:16px 0 20px;}
+  .contact-sec h2 span{color:var(--accent-2);}
+  .contact-sec p{color:var(--text-dim);max-width:420px;margin:0 auto 36px;line-height:1.7;}
+  .contact-links{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;}
   .contact-link{
-    display:inline-flex;align-items:center;gap:8px;
-    color:var(--text);text-decoration:none;
-    border:1px solid var(--border);
-    padding:12px 24px;border-radius:2px;
-    font-size:0.9rem;
-    transition:border-color 0.2s,color 0.2s;
+    display:inline-flex;align-items:center;gap:8px;color:var(--text);text-decoration:none;
+    border:1px solid var(--line);padding:12px 24px;border-radius:8px;font-size:0.9rem;transition:border-color 0.2s,color 0.2s;
   }
-  .contact-link:hover{border-color:var(--lime);color:var(--lime);}
+  .contact-link:hover{border-color:var(--accent-2);color:var(--accent-2);}
 
-  /* FOOTER */
-  footer{
-    padding:24px 6vw;
-    display:flex;justify-content:space-between;align-items:center;
-    border-top:1px solid var(--border);
-    font-family:'Space Mono',monospace;
-    font-size:0.68rem;color:var(--muted);
-    letter-spacing:0.05em;
-  }
-
-  /* MOBILE */
   @media(max-width:860px){
-    nav ul{display:none;}
-    nav .nav-cta{display:none;}
-    .hamburger{display:flex;}
-    .mobile-nav{display:flex;}
     .cassia-card{grid-template-columns:1fr;}
     .cassia-preview{min-height:280px;}
-    .work-grid{grid-template-columns:1fr;}
-    .about{grid-template-columns:1fr;}
+    .about-sec{grid-template-columns:1fr;}
     .about-img-wrap{display:none;}
-    footer{flex-direction:column;gap:8px;text-align:center;}
+    .mini-stats{flex-direction:column;}
+    .mini-stats .cell{border-right:none;border-bottom:1px solid var(--line);}
+    .mini-stats .cell:last-child{border-bottom:none;}
   }
 </style>
 </head>
@@ -422,15 +140,13 @@
 <div class="grain"></div>
 
 <nav>
-  <a href="#" class="nav-logo">TF<span>.</span></a>
+  <a href="index.html" class="nav-logo">TF<span>.</span></a>
   <ul>
     <li><a href="#work">Work</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" aria-label="Open menu">
-    <span></span><span></span><span></span>
-  </button>
+  <button class="hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
 </nav>
 
 <div class="mobile-nav" id="mobile-nav">
@@ -439,202 +155,156 @@
   <a href="#contact" class="m-cta">Get in Touch</a>
 </div>
 
-<section class="hero">
-  <div class="hero-inner">
-    <div class="hero-eyebrow">
-      <div class="hero-dot"></div>
-      <span class="label">Available for work — Auckland, NZ</span>
+<!-- HERO -->
+<section class="hero" style="padding-top:100px;">
+  <div class="container">
+    <div class="hero-eyebrow reveal"><div class="hero-dot"></div><span class="eyebrow">Available for work — Auckland, NZ</span></div>
+    <h1 class="reveal">Tristan Franks.<br>Marketing that <span class="hl">connects</span>.</h1>
+    <p class="sub reveal">Social media marketer and creative based in Auckland. Building campaigns, content, and digital experiences that actually perform — not just fill a feed.</p>
+    <div class="hero-actions reveal">
+      <a href="#work" class="btn btn-primary">See My Work</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
-    <h1>Tristan<br><span class="highlight">Franks</span>.<br>Marketing.</h1>
-    <p class="hero-sub">
-      Social media marketer and creative based in Auckland. <strong>Building campaigns, content, and digital experiences that actually connect — not just fill a feed.</strong>
-    </p>
-    <div class="hero-actions">
-      <a href="#work" class="btn-primary">See My Work</a>
-      <a href="#contact" class="btn-ghost">Get in Touch</a>
+    <div class="hero-shot reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia Auckland project preview">
     </div>
   </div>
-
   <div class="ticker">
     <div class="ticker-track">
-      <span>Meta Ads Manager</span>
-      <span>TikTok for Business</span>
-      <span>Canva Pro</span>
-      <span>Adobe Premiere Pro</span>
-      <span>After Effects</span>
-      <span>CapCut</span>
-      <span>Meta Business Suite</span>
-      <span>Short-Form Video</span>
-      <span>Social Strategy</span>
-      <span>Content Creation</span>
-      <span>Meta Ads Manager</span>
-      <span>TikTok for Business</span>
-      <span>Canva Pro</span>
-      <span>Adobe Premiere Pro</span>
-      <span>After Effects</span>
-      <span>CapCut</span>
-      <span>Meta Business Suite</span>
-      <span>Short-Form Video</span>
-      <span>Social Strategy</span>
-      <span>Content Creation</span>
+      <span>Meta Ads Manager</span><span>TikTok for Business</span><span>Canva Pro</span><span>Adobe Premiere Pro</span>
+      <span>After Effects</span><span>CapCut</span><span>Meta Business Suite</span><span>Short-Form Video</span>
+      <span>Social Strategy</span><span>Content Creation</span>
+      <span>Meta Ads Manager</span><span>TikTok for Business</span><span>Canva Pro</span><span>Adobe Premiere Pro</span>
+      <span>After Effects</span><span>CapCut</span><span>Meta Business Suite</span><span>Short-Form Video</span>
+      <span>Social Strategy</span><span>Content Creation</span>
     </div>
   </div>
 </section>
 
+<div class="container">
+  <div class="stat-row reveal">
+    <div class="stat"><span class="num">3</span><span class="lbl">Case studies</span></div>
+    <div class="stat"><span class="num">1</span><span class="lbl">Live client project</span></div>
+    <div class="stat"><span class="num">2025</span><span class="lbl">NZIE diploma grad</span></div>
+    <div class="stat"><span class="num">7</span><span class="lbl">Tools & platforms</span></div>
+  </div>
+</div>
+
+<!-- FEATURED — CASSIA -->
 <section class="featured" id="work">
-  <div class="section-head reveal">
-    <span class="label">Featured Project</span>
-    <div class="section-rule"></div>
-  </div>
-
-  <div class="cassia-card reveal">
-    <div class="cassia-preview">
-      <div class="cassia-badge">✦ Michelin Guide Selected Client</div>
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:left;max-width:none;margin-bottom:32px;">
+      <span class="eyebrow">Featured Project</span>
     </div>
-    <div class="cassia-info">
-      <div class="project-type">
-        <span class="tag">Web Design</span>
-        <span class="tag">Branding</span>
-        <span class="tag">Copywriting</span>
+    <div class="cassia-card reveal">
+      <div class="cassia-preview">
+        <div class="cassia-badge">✦ Michelin Guide Selected Client</div>
       </div>
-      <h3>Cassia Auckland — Full Website Redesign</h3>
-      <p>A complete redesign for Cassia Auckland, a modern Indian restaurant and Michelin Guide Selected establishment. Built a multi-page site with custom animations, a scroll-driven hero, and a design system centred around the limited pop-up residency at Ozone Coffee Roasters.</p>
-      <div class="michelin-note">
-        <span>✦</span>
-        <span><strong>Michelin Guide Selected</strong> — Inaugural Michelin Guide New Zealand 2026</span>
+      <div class="cassia-info">
+        <div class="project-type">
+          <span class="tag">Web Design</span>
+          <span class="tag">Branding</span>
+          <span class="tag">Copywriting</span>
+        </div>
+        <h3>Cassia Auckland — Full Website Redesign</h3>
+        <p>A complete redesign for Cassia Auckland, a modern Indian restaurant and Michelin Guide Selected establishment. Built a multi-page site with custom animations, a scroll-driven hero, and a design system centred around the limited pop-up residency at Ozone Coffee Roasters.</p>
+        <div class="michelin-note">
+          <span>✦</span>
+          <span><strong>Michelin Guide Selected</strong> — Inaugural Michelin Guide New Zealand 2026</span>
+        </div>
+        <a href="https://cassiaredesign.netlify.app" target="_blank" class="project-link">View Live Site</a>
       </div>
-      <a href="https://cassiaredesign.netlify.app" target="_blank" class="project-link">View Live Site</a>
     </div>
   </div>
 </section>
 
+<!-- REEL -->
 <section class="reel">
-  <div class="reel-head reveal">
-    <span class="label">Project Reel</span>
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:left;max-width:none;margin-bottom:28px;">
+      <span class="eyebrow">Project Reel</span>
+    </div>
   </div>
   <div class="reel-track">
-    <div class="reel-item">
-      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia">
-      <span class="reel-label">Cassia Auckland</span>
-    </div>
-    <div class="reel-item" style="background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;">
-      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">Make-A-Wish NZ</span>
-    </div>
-    <div class="reel-item" style="background:linear-gradient(135deg,#1c1a10,#2a2416);display:flex;align-items:center;justify-content:center;">
-      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">Barry's Bakery</span>
-    </div>
-    <div class="reel-item">
-      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/dcc53125-69a1-4db1-86ed-de9564a839e5/Screenshot+2026-05-31+at+12.22.44%E2%80%AFPM.png" alt="Cassia food">
-      <span class="reel-label">Cassia — Menu</span>
-    </div>
-    <div class="reel-item" style="background:var(--surface-2);display:flex;align-items:center;justify-content:center;">
-      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">More Coming</span>
-    </div>
-    <!-- Duplicate for seamless loop -->
-    <div class="reel-item">
-      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia">
-      <span class="reel-label">Cassia Auckland</span>
-    </div>
-    <div class="reel-item" style="background:linear-gradient(135deg,#1a1a2e,#16213e);display:flex;align-items:center;justify-content:center;">
-      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">Make-A-Wish NZ</span>
-    </div>
-    <div class="reel-item" style="background:linear-gradient(135deg,#1c1a10,#2a2416);display:flex;align-items:center;justify-content:center;">
-      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">Barry's Bakery</span>
-    </div>
-    <div class="reel-item">
-      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/dcc53125-69a1-4db1-86ed-de9564a839e5/Screenshot+2026-05-31+at+12.22.44%E2%80%AFPM.png" alt="Cassia food">
-      <span class="reel-label">Cassia — Menu</span>
-    </div>
-    <div class="reel-item" style="background:var(--surface-2);display:flex;align-items:center;justify-content:center;">
-      <span style="font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:#C8FF57;opacity:0.6;">More Coming</span>
-    </div>
+    <div class="reel-item"><img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia"><span class="reel-label">Cassia Auckland</span></div>
+    <div class="reel-item"><span class="placeholder-label">Make-A-Wish NZ</span></div>
+    <div class="reel-item"><span class="placeholder-label">Barry's Bakery</span></div>
+    <div class="reel-item"><img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/dcc53125-69a1-4db1-86ed-de9564a839e5/Screenshot+2026-05-31+at+12.22.44%E2%80%AFPM.png" alt="Cassia food"><span class="reel-label">Cassia — Menu</span></div>
+    <div class="reel-item"><span class="placeholder-label">More Coming</span></div>
+    <div class="reel-item"><img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia"><span class="reel-label">Cassia Auckland</span></div>
+    <div class="reel-item"><span class="placeholder-label">Make-A-Wish NZ</span></div>
+    <div class="reel-item"><span class="placeholder-label">Barry's Bakery</span></div>
+    <div class="reel-item"><img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/dcc53125-69a1-4db1-86ed-de9564a839e5/Screenshot+2026-05-31+at+12.22.44%E2%80%AFPM.png" alt="Cassia food"><span class="reel-label">Cassia — Menu</span></div>
+    <div class="reel-item"><span class="placeholder-label">More Coming</span></div>
   </div>
 </section>
 
-<section class="work">
-  <div class="section-head reveal">
-    <span class="label">Other Work</span>
-    <div class="section-rule"></div>
-  </div>
-  <div class="work-grid">
-    <div class="work-card reveal">
-      <div class="work-card-header">
-        <span class="num">01</span>
-        <span class="coursework-tag">Diploma Project</span>
-      </div>
-      <div class="work-card-body">
+<!-- OTHER WORK -->
+<section class="sec" style="padding-top:0;">
+  <div class="container">
+    <div class="sec-head reveal" style="text-align:left;max-width:none;margin-bottom:32px;">
+      <span class="eyebrow">Other Work</span>
+    </div>
+    <div class="feat-grid">
+      <div class="feat reveal">
+        <div class="icon">01</div>
         <h3>Make-A-Wish NZ — Donor Acquisition Strategy</h3>
-        <p>Built a full donor acquisition strategy using the SPECH framework. Developed logic-first ad messaging and audience segmentation designed to drive high-value monthly giving across Meta platforms.</p>
-        <div class="work-stats">
-          <div class="stat"><span class="stat-num">180K+</span><span class="stat-label">Est. Reach</span></div>
-          <div class="stat"><span class="stat-num">3</span><span class="stat-label">Ad Variants</span></div>
-          <div class="stat"><span class="stat-num">Meta</span><span class="stat-label">Platform</span></div>
+        <p>Built a full donor acquisition strategy using the SPECH framework. Developed logic-first messaging and audience segmentation designed to drive high-value monthly giving.</p>
+        <div class="mini-stats">
+          <div class="cell"><span class="n">100</span><span class="l">Donor Target</span></div>
+          <div class="cell"><span class="n">3</span><span class="l">Deliverables</span></div>
+          <div class="cell"><span class="n">SPECH</span><span class="l">Framework</span></div>
         </div>
-        <div class="card-tags">
-          <span class="tag">Strategy</span>
-          <span class="tag">Meta Ads</span>
-          <span class="tag">Copywriting</span>
-          <span class="tag">Audience Segmentation</span>
-        </div>
+        <div class="card-tags"><span class="tag">Strategy</span><span class="tag">Meta Ads</span><span class="tag">Copywriting</span></div>
+        <a href="work-makeawish.html" class="project-link">View Case File</a>
       </div>
-    </div>
-    <div class="work-card reveal">
-      <div class="work-card-header">
-        <span class="num">02</span>
-        <span class="coursework-tag">Diploma Project</span>
-      </div>
-      <div class="work-card-body">
+      <div class="feat reveal">
+        <div class="icon">02</div>
         <h3>Barry's Bakery — Social Media Analysis</h3>
-        <p>Competitive analysis revealing Barry's video content outperformed competitors by 300%. Delivered a strategic roadmap covering content pillars, posting cadence, and platform-specific optimisation recommendations.</p>
-        <div class="work-stats">
-          <div class="stat"><span class="stat-num">300%</span><span class="stat-label">Video Edge</span></div>
-          <div class="stat"><span class="stat-num">4</span><span class="stat-label">Competitors</span></div>
-          <div class="stat"><span class="stat-num">Organic</span><span class="stat-label">Focus</span></div>
+        <p>28-day relaunch analysis uncovering that video content outperformed static posts by 300%. Delivered a data-backed roadmap projecting a 597% ROI.</p>
+        <div class="mini-stats">
+          <div class="cell"><span class="n">597%</span><span class="l">Proj. ROI</span></div>
+          <div class="cell"><span class="n">300%</span><span class="l">Video Edge</span></div>
+          <div class="cell"><span class="n">28d</span><span class="l">Relaunch</span></div>
         </div>
-        <div class="card-tags">
-          <span class="tag">Analytics</span>
-          <span class="tag">Competitor Research</span>
-          <span class="tag">Reporting</span>
-          <span class="tag">Strategy</span>
-        </div>
+        <div class="card-tags"><span class="tag">Analytics</span><span class="tag">Reporting</span><span class="tag">Strategy</span></div>
+        <a href="work-barrys.html" class="project-link">View Case File</a>
       </div>
     </div>
   </div>
 </section>
 
-<section class="about" id="about">
-  <div class="about-img-wrap reveal">
-    <img src="https://i.imgur.com/Zpt2KGW.jpeg" alt="Tristan Franks" class="about-img">
-    <div class="about-accent">
-      <span class="big">19</span>
-      <span class="small">Years<br>Old</span>
+<!-- ABOUT -->
+<section class="about-sec" id="about">
+  <div class="container" style="display:contents;">
+    <div class="about-img-wrap reveal">
+      <img src="https://i.imgur.com/Zpt2KGW.jpeg" alt="Tristan Franks" class="about-img">
+      <div class="about-accent"><span class="big">19</span><span class="small">Years<br>Old</span></div>
     </div>
-  </div>
-  <div class="about-text reveal">
-    <span class="label">About Me</span>
-    <h2>Auckland-based.<br><span>Marketing-obsessed.</span></h2>
-    <p>I'm a recent NZIE Social Media Marketing Diploma graduate who actually lives on the internet. I get what performs on TikTok and Instagram because I'm on there — not because I read a report about it.</p>
-    <p>Most recently I redesigned the full website for Cassia Auckland, a Michelin Guide Selected restaurant, handling everything from the design system to the copy to the animations. Currently looking for my next opportunity in digital marketing.</p>
-    <div class="tools-grid">
-      <span class="tool">Canva</span>
-      <span class="tool">Premiere Pro</span>
-      <span class="tool">After Effects</span>
-      <span class="tool">CapCut</span>
-      <span class="tool">Meta Ads</span>
-      <span class="tool">TikTok for Business</span>
-      <span class="tool">Meta Business Suite</span>
+    <div class="about-text reveal">
+      <span class="eyebrow">About Me</span>
+      <h2>Auckland-based.<br><span>Marketing-obsessed.</span></h2>
+      <p>I'm a recent NZIE Social Media Marketing Diploma graduate who actually lives on the internet. I get what performs on TikTok and Instagram because I'm on there — not because I read a report about it.</p>
+      <p>Most recently I redesigned the full website for Cassia Auckland, a Michelin Guide Selected restaurant, handling everything from the design system to the copy to the animations. Currently looking for my next opportunity in digital marketing.</p>
+      <div class="tools-grid">
+        <span class="tool">Canva</span><span class="tool">Premiere Pro</span><span class="tool">After Effects</span>
+        <span class="tool">CapCut</span><span class="tool">Meta Ads</span><span class="tool">TikTok for Business</span><span class="tool">Meta Business Suite</span>
+      </div>
     </div>
   </div>
 </section>
 
-<section class="contact" id="contact">
-  <span class="label">Get In Touch</span>
-  <h2>Let's build<br><span>something.</span></h2>
-  <p>Looking for a marketing role in Auckland. Open to full-time, part-time, and freelance work.</p>
-  <div class="contact-links">
-    <a href="mailto:tnfranks25@gmail.com" class="contact-link">Email Me ↗</a>
-    <a href="https://nz.linkedin.com/in/tristan-franks-aa6a62381" target="_blank" class="contact-link">LinkedIn ↗</a>
-    <a href="https://drive.google.com/file/d/113CSmlBQam1cCMwykZMddb7583THpJlB/view?usp=sharing" target="_blank" class="contact-link">Request CV ↗</a>
+<!-- CONTACT -->
+<section class="contact-sec" id="contact">
+  <div class="container">
+    <span class="eyebrow">Get In Touch</span>
+    <h2>Let's build<br><span>something.</span></h2>
+    <p>Looking for a marketing role in Auckland. Open to full-time, part-time, and freelance work.</p>
+    <div class="contact-links">
+      <a href="mailto:tnfranks25@gmail.com" class="contact-link">Email Me ↗</a>
+      <a href="https://nz.linkedin.com/in/tristan-franks-aa6a62381" target="_blank" class="contact-link">LinkedIn ↗</a>
+      <a href="https://drive.google.com/file/d/113CSmlBQam1cCMwykZMddb7583THpJlB/view?usp=sharing" target="_blank" class="contact-link">Request CV ↗</a>
+    </div>
   </div>
 </section>
 
@@ -644,31 +314,38 @@
 </footer>
 
 <script>
-  // Hamburger
-  const hamburger = document.getElementById('hamburger');
-  const mobileNav = document.getElementById('mobile-nav');
-  function openMenu(){
-    mobileNav.style.display='flex';
-    requestAnimationFrame(()=>requestAnimationFrame(()=>mobileNav.classList.add('is-open')));
-    hamburger.classList.add('is-open');
-    document.body.style.overflow='hidden';
-  }
-  function closeMenu(){
-    mobileNav.classList.remove('is-open');
-    hamburger.classList.remove('is-open');
-    document.body.style.overflow='';
-    setTimeout(()=>{mobileNav.style.display='none';},300);
-  }
+  const hamburger=document.getElementById('hamburger'),mobileNav=document.getElementById('mobile-nav');
+  function openMenu(){mobileNav.style.display='flex';requestAnimationFrame(()=>requestAnimationFrame(()=>mobileNav.classList.add('is-open')));hamburger.classList.add('is-open');document.body.style.overflow='hidden';}
+  function closeMenu(){mobileNav.classList.remove('is-open');hamburger.classList.remove('is-open');document.body.style.overflow='';setTimeout(()=>{mobileNav.style.display='none';},300);}
   hamburger.addEventListener('click',()=>mobileNav.classList.contains('is-open')?closeMenu():openMenu());
   mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
 
-  // Scroll reveal
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target);}
-    });
-  },{threshold:0.1});
+  const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target);}});},{threshold:0.1});
   document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+  const counters=document.querySelectorAll('.stat-row .num');
+  const countObserver=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const el=entry.target;
+        const raw=el.textContent.trim();
+        const match=raw.match(/^([^\d]*)(\d+(\.\d+)?)(.*)$/);
+        if(match){
+          const prefix=match[1],target=parseFloat(match[2]),decimals=match[3]?match[3].length-1:0,suffix=match[4];
+          let cur=0;const dur=1200,start=performance.now();
+          function tick(now){
+            const p=Math.min((now-start)/dur,1);
+            cur=target*p;
+            el.textContent=prefix+cur.toFixed(decimals)+suffix;
+            if(p<1) requestAnimationFrame(tick); else el.textContent=prefix+target.toFixed(decimals)+suffix;
+          }
+          requestAnimationFrame(tick);
+        } else { /* non-numeric like "2025" already fine */ }
+        countObserver.unobserve(el);
+      }
+    });
+  },{threshold:0.4});
+  counters.forEach(c=>countObserver.observe(c));
 </script>
 </body>
 </html>
