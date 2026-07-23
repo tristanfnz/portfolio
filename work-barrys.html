@@ -36,7 +36,7 @@
       <a href="work-makeawish.html" class="btn btn-ghost">← Previous Project</a>
     </div>
     <div class="hero-shot reveal">
-      <img src="./barrys-cover.jpg" alt="Barry's Bakery campaign deck cover">
+      <img src="./barrys-cover.jpg" alt="Barry's Bakery campaign deck cover" class="lightbox-img" data-group="barrys-cover">
     </div>
   </div>
 </section>
@@ -120,7 +120,7 @@
       </div>
     </div>
     <div class="shot reveal" style="max-width:900px;margin:32px auto 0;">
-      <img src="./barrys-followers.jpg" alt="New followers by platform chart" style="aspect-ratio:16/9;">
+      <img src="./barrys-followers.jpg" alt="New followers by platform chart" style="aspect-ratio:16/9;" class="lightbox-img" data-group="barrys-followers">
     </div>
   </div>
 </section>
@@ -141,11 +141,11 @@
     </div>
     <div class="shot-grid reveal" style="margin-top:40px;grid-template-columns:repeat(2,1fr);">
       <div>
-        <div class="shot"><img src="./barrys-format.jpg" alt="Content format performance chart" style="aspect-ratio:16/10;"></div>
+        <div class="shot"><img src="./barrys-format.jpg" alt="Content format performance chart" style="aspect-ratio:16/10;" class="lightbox-img" data-group="barrys-charts"></div>
         <p class="shot-cap">Average Reach by Content Format</p>
       </div>
       <div>
-        <div class="shot"><img src="./barrys-posts.jpg" alt="Best vs worst performing post breakdown" style="aspect-ratio:16/10;"></div>
+        <div class="shot"><img src="./barrys-posts.jpg" alt="Best vs worst performing post breakdown" style="aspect-ratio:16/10;" class="lightbox-img" data-group="barrys-charts"></div>
         <p class="shot-cap">Best vs. Worst Performing Post</p>
       </div>
     </div>
@@ -188,40 +188,7 @@
   <span>Auckland, New Zealand</span>
 </footer>
 
-<script>
-  const hamburger=document.getElementById('hamburger'),mobileNav=document.getElementById('mobile-nav');
-  function openMenu(){mobileNav.style.display='flex';requestAnimationFrame(()=>requestAnimationFrame(()=>mobileNav.classList.add('is-open')));hamburger.classList.add('is-open');document.body.style.overflow='hidden';}
-  function closeMenu(){mobileNav.classList.remove('is-open');hamburger.classList.remove('is-open');document.body.style.overflow='';setTimeout(()=>{mobileNav.style.display='none';},300);}
-  hamburger.addEventListener('click',()=>mobileNav.classList.contains('is-open')?closeMenu():openMenu());
-  mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
-
-  const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target);}});},{threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-  const counters=document.querySelectorAll('.stat-row .num');
-  const countObserver=new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        const el=entry.target;
-        const raw=el.textContent.trim();
-        const match=raw.match(/^([^\d]*)(\d+(\.\d+)?)(.*)$/);
-        if(match){
-          const prefix=match[1],target=parseFloat(match[2]),decimals=match[3]?match[3].length-1:0,suffix=match[4];
-          let cur=0;const dur=1200,start=performance.now();
-          function tick(now){
-            const p=Math.min((now-start)/dur,1);
-            cur=target*p;
-            el.textContent=prefix+cur.toFixed(decimals)+suffix;
-            if(p<1) requestAnimationFrame(tick); else el.textContent=prefix+target.toFixed(decimals)+suffix;
-          }
-          requestAnimationFrame(tick);
-        }
-        countObserver.unobserve(el);
-      }
-    });
-  },{threshold:0.4});
-  counters.forEach(c=>countObserver.observe(c));
-</script>
+<script src="site.js"></script>
 
 </body>
 </html>

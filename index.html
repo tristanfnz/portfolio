@@ -36,14 +36,26 @@
   }
   .cassia-card:hover{transform:translateY(-4px);box-shadow:0 30px 70px rgba(0,0,0,0.45);}
   .cassia-preview{
-    position:relative;min-height:420px;overflow:hidden;cursor:zoom-in;
+    position:relative;min-height:420px;overflow:hidden;
     background:
-      linear-gradient(135deg,rgba(11,12,16,0.25),rgba(11,12,16,0.75)),
-      url('https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg') center/cover no-repeat;
-    background-size:100%,cover;
-    transition:background-size 0.5s ease;
+      radial-gradient(circle at 30% 20%, rgba(91,110,245,0.35), transparent 55%),
+      radial-gradient(circle at 75% 80%, rgba(139,147,255,0.22), transparent 50%),
+      var(--bg);
   }
-  .cassia-card:hover .cassia-preview{background-size:100%,115%;}
+  .cassia-preview::before{
+    content:"";position:absolute;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size:34px 34px;
+    transition:transform 0.6s ease;
+  }
+  .cassia-card:hover .cassia-preview::before{transform:scale(1.08);}
+  .cassia-wordmark{
+    position:absolute;bottom:28px;left:28px;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:2.4rem;
+    color:rgba(245,246,248,0.14);letter-spacing:-0.02em;
+  }
   .cassia-badge{
     position:absolute;top:24px;left:24px;background:rgba(11,12,16,0.85);backdrop-filter:blur(8px);
     border:1px solid rgba(139,147,255,0.3);padding:8px 14px;border-radius:20px;
@@ -168,16 +180,13 @@
       <a href="#work" class="btn btn-primary">See My Work</a>
       <a href="#contact" class="btn btn-ghost">Get in Touch</a>
     </div>
-    <div class="hero-shot reveal">
-      <img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia Auckland project preview">
-    </div>
   </div>
   <div class="ticker">
     <div class="ticker-track">
-      <span>Meta Ads Manager</span><span>TikTok for Business</span><span>Canva Pro</span><span>Adobe Premiere Pro</span>
+      <span>Web Design</span><span>Meta Ads Manager</span><span>TikTok for Business</span><span>Canva Pro</span><span>Adobe Premiere Pro</span>
       <span>After Effects</span><span>CapCut</span><span>Meta Business Suite</span><span>Short-Form Video</span>
       <span>Social Strategy</span><span>Content Creation</span>
-      <span>Meta Ads Manager</span><span>TikTok for Business</span><span>Canva Pro</span><span>Adobe Premiere Pro</span>
+      <span>Web Design</span><span>Meta Ads Manager</span><span>TikTok for Business</span><span>Canva Pro</span><span>Adobe Premiere Pro</span>
       <span>After Effects</span><span>CapCut</span><span>Meta Business Suite</span><span>Short-Form Video</span>
       <span>Social Strategy</span><span>Content Creation</span>
     </div>
@@ -202,6 +211,7 @@
     <div class="cassia-card reveal">
       <div class="cassia-preview">
         <div class="cassia-badge">✦ Michelin Guide Selected Client</div>
+        <div class="cassia-wordmark">Cassia</div>
       </div>
       <div class="cassia-info">
         <div class="project-type">
@@ -229,12 +239,12 @@
     </div>
   </div>
   <div class="reel-track">
-    <div class="reel-item"><img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia"><span class="reel-label">Cassia Auckland</span></div>
+    <div class="reel-item"><span class="placeholder-label">Cassia Auckland</span></div>
     <div class="reel-item"><span class="placeholder-label">Make-A-Wish NZ</span></div>
     <div class="reel-item"><span class="placeholder-label">Barry's Bakery</span></div>
     <div class="reel-item"><span class="placeholder-label">Cassia — Full Redesign</span></div>
     <div class="reel-item"><span class="placeholder-label">More Coming</span></div>
-    <div class="reel-item"><img src="https://images.squarespace-cdn.com/content/v1/6a0811fd6016d76237fa5d41/446c0d2b-7b5f-47e5-95f0-02f51c3871f2/Cassia+%28High+Res%29-122.jpg" alt="Cassia"><span class="reel-label">Cassia Auckland</span></div>
+    <div class="reel-item"><span class="placeholder-label">Cassia Auckland</span></div>
     <div class="reel-item"><span class="placeholder-label">Make-A-Wish NZ</span></div>
     <div class="reel-item"><span class="placeholder-label">Barry's Bakery</span></div>
     <div class="reel-item"><span class="placeholder-label">Cassia — Full Redesign</span></div>
@@ -290,7 +300,7 @@
       <p>I'm a recent NZIE Social Media Marketing Diploma graduate who actually lives on the internet. I get what performs on TikTok and Instagram because I'm on there — not because I read a report about it.</p>
       <p>Most recently I redesigned the full website for Cassia Auckland, a Michelin Guide Selected restaurant, handling everything from the design system to the copy to the animations. Currently looking for my next opportunity in digital marketing.</p>
       <div class="tools-grid">
-        <span class="tool">Canva</span><span class="tool">Premiere Pro</span><span class="tool">After Effects</span>
+        <span class="tool">Web Design</span><span class="tool">Canva</span><span class="tool">Premiere Pro</span><span class="tool">After Effects</span>
         <span class="tool">CapCut</span><span class="tool">Meta Ads</span><span class="tool">TikTok for Business</span><span class="tool">Meta Business Suite</span>
       </div>
     </div>
@@ -316,39 +326,6 @@
   <span>Auckland, New Zealand</span>
 </footer>
 
-<script>
-  const hamburger=document.getElementById('hamburger'),mobileNav=document.getElementById('mobile-nav');
-  function openMenu(){mobileNav.style.display='flex';requestAnimationFrame(()=>requestAnimationFrame(()=>mobileNav.classList.add('is-open')));hamburger.classList.add('is-open');document.body.style.overflow='hidden';}
-  function closeMenu(){mobileNav.classList.remove('is-open');hamburger.classList.remove('is-open');document.body.style.overflow='';setTimeout(()=>{mobileNav.style.display='none';},300);}
-  hamburger.addEventListener('click',()=>mobileNav.classList.contains('is-open')?closeMenu():openMenu());
-  mobileNav.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
-
-  const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target);}});},{threshold:0.1});
-  document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-  const counters=document.querySelectorAll('.stat-row .num');
-  const countObserver=new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        const el=entry.target;
-        const raw=el.textContent.trim();
-        const match=raw.match(/^([^\d]*)(\d+(\.\d+)?)(.*)$/);
-        if(match){
-          const prefix=match[1],target=parseFloat(match[2]),decimals=match[3]?match[3].length-1:0,suffix=match[4];
-          let cur=0;const dur=1200,start=performance.now();
-          function tick(now){
-            const p=Math.min((now-start)/dur,1);
-            cur=target*p;
-            el.textContent=prefix+cur.toFixed(decimals)+suffix;
-            if(p<1) requestAnimationFrame(tick); else el.textContent=prefix+target.toFixed(decimals)+suffix;
-          }
-          requestAnimationFrame(tick);
-        } else { /* non-numeric like "2025" already fine */ }
-        countObserver.unobserve(el);
-      }
-    });
-  },{threshold:0.4});
-  counters.forEach(c=>countObserver.observe(c));
-</script>
+<script src="site.js"></script>
 </body>
 </html>
